@@ -44,6 +44,13 @@ function App() {
 
   const handleIsChecked = () => {
     setIsChecked(!isChecked);
+    setMeasurement({
+      feet: "",
+      inches: "",
+      pounds: "",
+      cm: "",
+      kg: "",
+    });
   };
 
   return (
