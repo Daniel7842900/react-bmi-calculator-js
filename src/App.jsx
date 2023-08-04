@@ -1,16 +1,14 @@
 import { useState } from "react";
 import Toggle from "./components/Toggle";
+import Input from "./components/Input";
 
 function App() {
-  const [englishMeasure, setEnglishMeasure] = useState({
+  const [measurement, setMeasurement] = useState({
     feet: "",
     inches: "",
     pounds: "",
-  });
-
-  const [metricMeasure, setMetricMeasure] = useState({
-    centimeters: "",
-    kilograms: "",
+    cm: "",
+    kg: "",
   });
 
   const [isChecked, setIsChecked] = useState(false);
@@ -30,7 +28,7 @@ function App() {
     const regex = new RegExp(`^[0-9]{0,${numberLimit[targetId]}}$`);
 
     if (targetValue === "" || regex.test(targetValue)) {
-      setEnglishMeasure((prev) => ({
+      setMeasurement((prev) => ({
         ...prev,
         [targetId]: targetValue,
       }));
@@ -68,44 +66,30 @@ function App() {
               {/* unit section */}
               {!isChecked ? (
                 <div className="w-1/2 flex flex-col ml-6">
-                  <div>
-                    <input
-                      type="number"
-                      id="feet"
-                      className="mb-1 w-14 rounded-lg"
-                      onChange={handleChange}
-                      onKeyDown={handleKeyDown}
-                      value={englishMeasure.feet}
-                    />
-                    <label className="ml-2">Feet</label>
-                  </div>
-                  <div>
-                    <input
-                      type="number"
-                      id="inches"
-                      className="mt-1 w-14 rounded-lg"
-                      onChange={handleChange}
-                      onKeyDown={handleKeyDown}
-                      value={englishMeasure.inches}
-                    />
-                    <label htmlFor="" className="ml-2">
-                      Inches
-                    </label>
-                  </div>
+                  <Input
+                    id="feet"
+                    label="Feet"
+                    value={measurement.feet}
+                    handleOnChange={handleChange}
+                    handleOnKeyDown={handleKeyDown}
+                  />
+                  <Input
+                    id="inches"
+                    label="Inches"
+                    value={measurement.inches}
+                    handleOnChange={handleChange}
+                    handleOnKeyDown={handleKeyDown}
+                  />
                 </div>
               ) : (
                 <div className="w-1/2 flex flex-col ml-6">
-                  <div>
-                    <input
-                      type="number"
-                      id="cm"
-                      className="mb-1 w-14 rounded-lg"
-                      onChange={handleChange}
-                      onKeyDown={handleKeyDown}
-                      value={englishMeasure.cm}
-                    />
-                    <label className="ml-2">cm</label>
-                  </div>
+                  <Input
+                    id="cm"
+                    label="cm"
+                    value={measurement.cm}
+                    handleOnChange={handleChange}
+                    handleOnKeyDown={handleKeyDown}
+                  />
                 </div>
               )}
             </div>
@@ -117,31 +101,23 @@ function App() {
               {/* unit section */}
               {!isChecked ? (
                 <div className="w-1/2 flex flex-col ml-6">
-                  <div>
-                    <input
-                      type="number"
-                      id="pounds"
-                      className="mb-1 w-14 rounded-lg"
-                      onChange={handleChange}
-                      onKeyDown={handleKeyDown}
-                      value={englishMeasure.pounds}
-                    />
-                    <label className="ml-2">Pounds</label>
-                  </div>
+                  <Input
+                    id="pounds"
+                    label="Pounds"
+                    value={measurement.pounds}
+                    handleOnChange={handleChange}
+                    handleOnKeyDown={handleKeyDown}
+                  />
                 </div>
               ) : (
                 <div className="w-1/2 flex flex-col ml-6">
-                  <div>
-                    <input
-                      type="number"
-                      id="kg"
-                      className="mb-1 w-14 rounded-lg"
-                      onChange={handleChange}
-                      onKeyDown={handleKeyDown}
-                      value={englishMeasure.kg}
-                    />
-                    <label className="ml-2">kg</label>
-                  </div>
+                  <Input
+                    id="kg"
+                    label="kg"
+                    value={measurement.kg}
+                    handleOnChange={handleChange}
+                    handleOnKeyDown={handleKeyDown}
+                  />
                 </div>
               )}
             </div>
