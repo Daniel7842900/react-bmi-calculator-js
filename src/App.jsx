@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Toggle from "./components/Toggle";
 import Input from "./components/Input";
+import Card from "./components/Card";
 
 function App() {
   const [measurement, setMeasurement] = useState({
@@ -60,7 +61,7 @@ function App() {
       </div>
       <div className="flex h-3/5 justify-center items-center mx-auto">
         {/* user input container here */}
-        <div className="flex flex-col max-w-sm rounded-lg overflow-hidden shadow-lg bg-orange-200 w-80 h-96">
+        <Card className="flex flex-col">
           {/* toggle container */}
           <Toggle handleOnChange={handleIsChecked} />
           {/* main user input section */}
@@ -137,9 +138,9 @@ function App() {
               Calculate
             </button>
           </div>
-        </div>
+        </Card>
         {/* bmi number and circle progress bar here */}
-        <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-orange-200 mx-10 w-80 h-96">
+        <Card className="mx-10">
           {/* <img
             className="w-full"
             src="/img/card-top.jpg"
@@ -149,9 +150,9 @@ function App() {
             <div className="font-bold text-xl mb-2"></div>
             <p className="text-gray-700 text-base">Circle Progress bar here</p>
           </div>
-        </div>
+        </Card>
         {/* explanation container here */}
-        <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-orange-200 w-80 h-96">
+        <Card>
           {/* <img
             className="w-full"
             src="/img/card-top.jpg"
@@ -161,7 +162,7 @@ function App() {
             <div className="font-bold text-xl mb-2">What is BMI?</div>
             <p className="text-gray-700 text-base">Description here</p>
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );
