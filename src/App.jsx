@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Toggle from "./components/Toggle";
 
 function App() {
   const [englishMeasure, setEnglishMeasure] = useState({
@@ -56,25 +57,7 @@ function App() {
         {/* user input container here */}
         <div className="flex flex-col max-w-sm rounded-lg overflow-hidden shadow-lg bg-orange-200 w-80 h-96">
           {/* toggle container */}
-          <div className="px-4 py-4 flex justify-end">
-            <label
-              htmlFor="unit-toggle"
-              className="inline-flex items-center rounded-md cursor-pointer dark:text-gray-800"
-            >
-              <input
-                id="unit-toggle"
-                type="checkbox"
-                className="hidden peer"
-                onChange={handleIsChecked}
-              />
-              <span className="px-4 py-2 text-sm rounded-l-md dark:bg-cyan-200 peer-checked:dark:bg-gray-300">
-                English
-              </span>
-              <span className="px-4 py-2 text-sm rounded-r-md dark:bg-gray-300 peer-checked:dark:bg-cyan-200">
-                Metric
-              </span>
-            </label>
-          </div>
+          <Toggle handleOnChange={handleIsChecked} />
           {/* main user input section */}
           <div className="px-4 py-4 grow flex flex-col justify-evenly">
             {/* height section */}
