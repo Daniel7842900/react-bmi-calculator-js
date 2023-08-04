@@ -7,6 +7,13 @@ function App() {
     pounds: "",
   });
 
+  const [metricMeasure, setMetricMeasure] = useState({
+    centimeters: "",
+    kilograms: "",
+  });
+
+  const [isChecked, setIsChecked] = useState(false);
+
   // handle input fields change
   const handleChange = (e) => {
     const targetId = e.target.id;
@@ -15,6 +22,8 @@ function App() {
       feet: 1,
       inches: 2,
       pounds: 3,
+      cm: 3,
+      kg: 3,
     };
 
     const regex = new RegExp(`^[0-9]{0,${numberLimit[targetId]}}$`);
@@ -34,6 +43,10 @@ function App() {
     }
   };
 
+  const handleIsChecked = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
     <div className="min-h-screen h-screen m-0 bg-stone-100">
       <div className="flex h-1/5 justify-center items-center mx-auto">
@@ -48,7 +61,12 @@ function App() {
               htmlFor="unit-toggle"
               className="inline-flex items-center rounded-md cursor-pointer dark:text-gray-800"
             >
-              <input id="unit-toggle" type="checkbox" className="hidden peer" />
+              <input
+                id="unit-toggle"
+                type="checkbox"
+                className="hidden peer"
+                onChange={handleIsChecked}
+              />
               <span className="px-4 py-2 text-sm rounded-l-md dark:bg-cyan-200 peer-checked:dark:bg-gray-300">
                 English
               </span>
@@ -64,51 +82,85 @@ function App() {
               <div className="w-1/2 ml-6 text-xl">
                 <span>Height: </span>
               </div>
-              <div className="w-1/2 flex flex-col ml-6">
-                <div>
-                  <input
-                    type="number"
-                    id="feet"
-                    className="mb-1 w-14 rounded-lg"
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    value={englishMeasure.feet}
-                  />
-                  <label className="ml-2">Feet</label>
+              {/* unit section */}
+              {!isChecked ? (
+                <div className="w-1/2 flex flex-col ml-6">
+                  <div>
+                    <input
+                      type="number"
+                      id="feet"
+                      className="mb-1 w-14 rounded-lg"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={englishMeasure.feet}
+                    />
+                    <label className="ml-2">Feet</label>
+                  </div>
+                  <div>
+                    <input
+                      type="number"
+                      id="inches"
+                      className="mt-1 w-14 rounded-lg"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={englishMeasure.inches}
+                    />
+                    <label htmlFor="" className="ml-2">
+                      Inches
+                    </label>
+                  </div>
                 </div>
-                <div>
-                  <input
-                    type="number"
-                    id="inches"
-                    className="mt-1 w-14 rounded-lg"
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    value={englishMeasure.inches}
-                  />
-                  <label htmlFor="" className="ml-2">
-                    Inches
-                  </label>
+              ) : (
+                <div className="w-1/2 flex flex-col ml-6">
+                  <div>
+                    <input
+                      type="number"
+                      id="cm"
+                      className="mb-1 w-14 rounded-lg"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={englishMeasure.cm}
+                    />
+                    <label className="ml-2">cm</label>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             {/* weight section */}
             <div className="flex justify-between">
               <div className="w-1/2 ml-6 text-xl">
                 <span>Weight: </span>
               </div>
-              <div className="w-1/2 flex flex-col ml-6">
-                <div>
-                  <input
-                    type="number"
-                    id="pounds"
-                    className="mb-1 w-14 rounded-lg"
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    value={englishMeasure.pounds}
-                  />
-                  <label className="ml-2">Pounds</label>
+              {/* unit section */}
+              {!isChecked ? (
+                <div className="w-1/2 flex flex-col ml-6">
+                  <div>
+                    <input
+                      type="number"
+                      id="pounds"
+                      className="mb-1 w-14 rounded-lg"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={englishMeasure.pounds}
+                    />
+                    <label className="ml-2">Pounds</label>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="w-1/2 flex flex-col ml-6">
+                  <div>
+                    <input
+                      type="number"
+                      id="kg"
+                      className="mb-1 w-14 rounded-lg"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      value={englishMeasure.kg}
+                    />
+                    <label className="ml-2">kg</label>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="px-4 pt-4 pb-2 flex justify-center items-center mx-auto">
