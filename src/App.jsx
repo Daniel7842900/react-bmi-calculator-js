@@ -2,6 +2,7 @@ import { useState } from "react";
 import Toggle from "./components/Toggle";
 import Input from "./components/Input";
 import Card from "./components/Card";
+import { calculateBMI } from "./utils/helpers";
 
 function App() {
   const [measurement, setMeasurement] = useState({
@@ -13,6 +14,8 @@ function App() {
   });
 
   const [isChecked, setIsChecked] = useState(false);
+
+  const [BMI, setBMI] = useState(0);
 
   // handle input fields change
   const handleChange = (e) => {
@@ -54,13 +57,21 @@ function App() {
     });
   };
 
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    console.log("submit clicked");
+    const BMI = calculateBMI(measurement, isChecked);
+    console.log("BMI: ", BMI);
+    setBMI(BMI);
+  };
+
   return (
     <div className="min-h-screen h-screen m-0 bg-stone-100">
       <div className="flex h-1/5 justify-center items-center mx-auto">
         <h1 className="text-5xl">Welcome to BMI Calculator</h1>
       </div>
       <div className="flex h-3/5 justify-center items-center mx-auto">
-        {/* user input container here */}
+        {/* user input card */}
         <Card className="flex flex-col">
           {/* toggle container */}
           <Toggle handleOnChange={handleIsChecked} />
@@ -134,12 +145,13 @@ function App() {
             <button
               className="inline-block bg-white rounded-full px-3 py-1 text-md font-semibold text-gray-700 border-black border-2
               hover:bg-gray-100"
+              onClick={handleSubmit}
             >
               Calculate
             </button>
           </div>
         </Card>
-        {/* bmi number and circle progress bar here */}
+        {/* bmi number and circle progress bar card */}
         <Card className="mx-10">
           {/* <img
             className="w-full"
@@ -151,7 +163,7 @@ function App() {
             <p className="text-gray-700 text-base">Circle Progress bar here</p>
           </div>
         </Card>
-        {/* explanation container here */}
+        {/* explanation card */}
         <Card>
           {/* <img
             className="w-full"
