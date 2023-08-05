@@ -3,8 +3,12 @@ import Toggle from "./components/Toggle";
 import Input from "./components/Input";
 import Card from "./components/Card";
 import { calculateBMI } from "./utils/helpers";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 function App() {
+  const percentage = 66;
+
   const [measurement, setMeasurement] = useState({
     feet: "",
     inches: "",
@@ -152,15 +156,28 @@ function App() {
           </div>
         </Card>
         {/* bmi number and circle progress bar card */}
-        <Card className="mx-10">
-          {/* <img
-            className="w-full"
-            src="/img/card-top.jpg"
-            alt="Sunset in the mountains"
-          /> */}
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2"></div>
-            <p className="text-gray-700 text-base">Circle Progress bar here</p>
+        <Card className="mx-10 flex flex-col">
+          <div className="px-6 py-4 justify-center items-center mx-auto flex flex-col">
+            <div className="font-bold text-xl mb-2">
+              <span>Result</span>
+            </div>
+          </div>
+          <div className="px-6 py-4 justify-center items-center mx-auto h-1/2 grow">
+            <CircularProgressbar
+              value={BMI}
+              text={`${BMI}%`}
+              circleRatio={0.6}
+              styles={buildStyles({
+                rotation: 0.7,
+                strokeLinecap: "round",
+                trailColor: "#eee",
+              })}
+            />
+          </div>
+          <div className="px-6 py-4 justify-center items-center mx-auto flex flex-col">
+            <div className="font-bold text-xl mb-2">
+              <span>Result</span>
+            </div>
           </div>
         </Card>
         {/* explanation card */}
