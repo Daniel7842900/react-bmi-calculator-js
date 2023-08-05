@@ -2,13 +2,11 @@ import { useState } from "react";
 import Toggle from "./components/Toggle";
 import Input from "./components/Input";
 import Card from "./components/Card";
-import { calculateBMI } from "./utils/helpers";
+import { calculateBMI, capitalizeFirstLetter } from "./utils/helpers";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function App() {
-  const percentage = 66;
-
   const [measurement, setMeasurement] = useState({
     feet: "",
     inches: "",
@@ -18,8 +16,11 @@ function App() {
   });
 
   const [isChecked, setIsChecked] = useState(false);
-
   const [BMI, setBMI] = useState(0);
+  const [indication, setIndication] = useState({
+    status: "",
+    color: "",
+  });
 
   // handle input fields change
   const handleChange = (e) => {
@@ -46,7 +47,7 @@ function App() {
   // Prevent typing dot
   const handleKeyDown = (e) => {
     if (e.key === ".") {
-      e.preventDefault(); // Prevent typing a dot
+      e.preventDefault();
     }
   };
 
@@ -61,12 +62,37 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    console.log("submit clicked");
+  const handleSubmit = () => {
     const BMI = calculateBMI(measurement, isChecked);
-    console.log("BMI: ", BMI);
+    const status = pickColor(BMI);
+
     setBMI(BMI);
+    setIndication({
+      status: status.status,
+      color: status.color,
+    });
+  };
+
+  const pickColor = (bmi) => {
+    let result = {};
+
+    const weightStatus = {
+      underweight: { max: 18.5, color: "#fddf47" },
+      healthy: { max: 24.99, color: "#4ade80" },
+      overweight: { max: 29.99, color: "#fddf47" },
+      obesity: { max: Infinity, color: "#ef4444" },
+    };
+
+    const status = Object.keys(weightStatus).find(
+      (key) => bmi <= weightStatus[key].max
+    );
+
+    result = {
+      status: status,
+      color: weightStatus[status].color,
+    };
+
+    return result;
   };
 
   return (
@@ -165,18 +191,22 @@ function App() {
           <div className="px-6 py-4 justify-center items-center mx-auto h-1/2 grow">
             <CircularProgressbar
               value={BMI}
-              text={`${BMI}%`}
+              text={`${BMI}`}
               circleRatio={0.6}
               styles={buildStyles({
                 rotation: 0.7,
                 strokeLinecap: "round",
                 trailColor: "#eee",
+                pathColor: `${indication.color}`,
+                textColor: "#000",
               })}
+              minValue={0}
+              maxValue={40}
             />
           </div>
           <div className="px-6 py-4 justify-center items-center mx-auto flex flex-col">
             <div className="font-bold text-xl mb-2">
-              <span>Result</span>
+              <span>{capitalizeFirstLetter(indication.status)}</span>
             </div>
           </div>
         </Card>

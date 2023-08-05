@@ -33,4 +33,9 @@ const roundToDecimal = (number) => {
   return result;
 };
 
-export { calculateBMI };
+const capitalizeFirstLetter = (str) => {
+  const result = str.charAt(0).toUpperCase() + str.slice(1);
+  return result;
+};
+
+export { calculateBMI, capitalizeFirstLetter };
