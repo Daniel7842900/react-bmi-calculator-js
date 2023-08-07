@@ -2,9 +2,12 @@ import { useState } from "react";
 import Toggle from "./components/Toggle";
 import Input from "./components/Input";
 import Card from "./components/Card";
-import { calculateBMI, capitalizeFirstLetter } from "./utils/helpers";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import {
+  calculateBMI,
+  capitalizeFirstLetter,
+  pickColor,
+} from "./utils/helpers";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
   const [measurement, setMeasurement] = useState({
@@ -14,7 +17,6 @@ function App() {
     cm: "",
     kg: "",
   });
-
   const [isChecked, setIsChecked] = useState(false);
   const [BMI, setBMI] = useState(0);
   const [indication, setIndication] = useState({
@@ -71,28 +73,6 @@ function App() {
       status: status.status,
       color: status.color,
     });
-  };
-
-  const pickColor = (bmi) => {
-    let result = {};
-
-    const weightStatus = {
-      underweight: { max: 18.5, color: "#fddf47" },
-      healthy: { max: 24.99, color: "#4ade80" },
-      overweight: { max: 29.99, color: "#fddf47" },
-      obesity: { max: Infinity, color: "#ef4444" },
-    };
-
-    const status = Object.keys(weightStatus).find(
-      (key) => bmi <= weightStatus[key].max
-    );
-
-    result = {
-      status: status,
-      color: weightStatus[status].color,
-    };
-
-    return result;
   };
 
   return (
@@ -189,20 +169,7 @@ function App() {
             </div>
           </div>
           <div className="px-6 py-4 justify-center items-center mx-auto h-1/2 grow">
-            <CircularProgressbar
-              value={BMI}
-              text={`${BMI}`}
-              circleRatio={0.6}
-              styles={buildStyles({
-                rotation: 0.7,
-                strokeLinecap: "round",
-                trailColor: "#eee",
-                pathColor: `${indication.color}`,
-                textColor: "#000",
-              })}
-              minValue={0}
-              maxValue={40}
-            />
+            <ProgressBar BMI={BMI} indication={indication} />
           </div>
           <div className="px-6 py-4 justify-center items-center mx-auto flex flex-col">
             <div className="font-bold text-xl mb-2">

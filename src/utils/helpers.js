@@ -38,4 +38,26 @@ const capitalizeFirstLetter = (str) => {
   return result;
 };
 
-export { calculateBMI, capitalizeFirstLetter };
+const pickColor = (bmi) => {
+  let result = {};
+
+  const weightStatus = {
+    underweight: { max: 18.5, color: "#fddf47" },
+    healthy: { max: 24.99, color: "#4ade80" },
+    overweight: { max: 29.99, color: "#fddf47" },
+    obesity: { max: Infinity, color: "#ef4444" },
+  };
+
+  const status = Object.keys(weightStatus).find(
+    (key) => bmi <= weightStatus[key].max
+  );
+
+  result = {
+    status: status,
+    color: weightStatus[status].color,
+  };
+
+  return result;
+};
+
+export { calculateBMI, capitalizeFirstLetter, pickColor };
