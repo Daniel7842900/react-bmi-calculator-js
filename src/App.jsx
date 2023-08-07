@@ -179,14 +179,27 @@ function App() {
         </Card>
         {/* explanation card */}
         <Card>
-          {/* <img
-            className="w-full"
-            src="/img/card-top.jpg"
-            alt="Sunset in the mountains"
-          /> */}
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">What is BMI?</div>
-            <p className="text-gray-700 text-base">Description here</p>
+            <p className="text-gray-700 text-base mb-2">
+              BMI is an inexpensive and easy screening method for weight
+              category—underweight, healthy weight, overweight, and obesity. BMI
+              does not measure body fat directly, but BMI is moderately
+              correlated with more direct measures of body fat. Furthermore, BMI
+              appears to be as strongly correlated with various metabolic and
+              disease outcome as are these more direct measures of body fatness.
+            </p>
+            <p>
+              Source:{" "}
+              <a
+                href="https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html"
+                className="text-blue-600 underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CDC
+              </a>
+            </p>
           </div>
         </Card>
       </div>
